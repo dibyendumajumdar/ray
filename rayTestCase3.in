@@ -1,0 +1,61 @@
+# Testcase3: plane waves entering Maksutov camera
+# D.Wells, NRAO-CV, 1995-12-18
+
+# -=-=-=-=-=-=-=- Begin Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
+# Copyright (C) 1995 Associated Universities, Inc. Washington DC, USA.
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# 
+# Correspondence concerning GBT software should be addressed as follows:
+# GBT Operations, National Radio Astronomy Observatory, P. O. Box 2,
+# Green Bank, WV 24944-0002 USA
+#
+# -=-=-=-=-=-=-=- End Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Digits 4 0.00001
+
+System Maksutov_camera
+# Diameter is 100mm, focal ratio f/4.
+# prescription from section 4, p.274, of Maksutov, D. D. "New
+# Catadioptric Meniscus Systems", JOSA 34 (5), 270-284, May 1944.
+# origin at front surface of meniscus. index of glass=1.5163,
+# R1=-152.8mm, d1=10.0mm, R2=-158.6mm, d2=539.1mm, R3=-823.2, and
+# focus lies S'y=420.0mm in front of R3 (camera mirror):
+rayAddSurface "lens_front" -0.00654450 0 0 0 0.65950 \
+			[0,0,0]&[0,0,0]		\
+			"cylinder"@[0,0,0]&[1,0,0] 50 
+rayAddSurface "lens_rear" -0.00630517 0 0 0 1.5163 \
+			[10.0,0,0]&[0,0,0]		\
+			"cylinder"@[0,0,0]&[1,0,0] 60 
+rayAddSurface "main_mirror" -0.00121477 0 0 0 -1\
+			549.1 0 0     0 0 0 \
+			"cylinder"@[0,0,0]&[1,0,0] 80 
+rayAddSurface "focus" 0 0 0 0 1 \
+			[129.1,0,0]&[0,0,0] \
+			"cylinder"@[129.1,0,0]&[1,0,0]10
+rayPrtSystem
+
+# Generate plane waves near origin, 100mm diameter, 1mr step
+rayGenerator "plane"@[-50,0,0]&[1,0,0]50 \
+			0.001,2,2,4	0.1,-0.001	2,13 "bundle"
+
+rayTrace 
+rayGetFoci
+rayPrtFoci
+rayPltSystem
+rayPltPS [5, 13] 650.0 [275,0,0] orthographic rayTestCase3a.ps
+rayPltPS [10,10]  10.0 [130,0,0] orthographic rayTestCase3b.ps
+Quit

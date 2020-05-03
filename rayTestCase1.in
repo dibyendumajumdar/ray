@@ -1,0 +1,65 @@
+# Testcase1: plane waves entering GBT Gregorian at rigging angle
+# D.Wells, NRAO-CV, 1995-07-06,08-29.
+
+# -=-=-=-=-=-=-=- Begin Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
+# Copyright (C) 1995 Associated Universities, Inc. Washington DC, USA.
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# 
+# Correspondence concerning GBT software should be addressed as follows:
+# GBT Operations, National Radio Astronomy Observatory, P. O. Box 2,
+# Green Bank, WV 24944-0002 USA
+#
+# -=-=-=-=-=-=-=- End Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Digits 4 0.00001
+
+System GBT_Gregorian_at_44d
+#	unit is meters. origin at prime focus. 
+#	eps=0.528, e=5.5m, a=e/eps=10.4167m, b=sqrt(a^2-e^2)=8.8463m
+#	r0=b^2/a=7.5126m, c=1/r0=0.133110, d=a-e=4.9167m
+#	alpha=17.89878d=0.312393r, beta=5.56996d=0.097214r
+#	vertex=(F1+d*cos(beta),F1-d*sin(beta),0)&(0,0,-beta)
+#	the_big_mirror: fp=60.0m, r0=120.0m, c=1/r0=0.0083333
+#	greg_focus=(F1-2e*cos(beta),F1+2e*sin(beta),0),
+rayAddSurface "main_mirror" +0.0083333333 1 0 0 -1		\
+			[-60,0,0]&[0,0,0]		\
+			"cylinder"@[-60,-54,0]&[1,0,0] 50    
+#       tilt prime focus plane to 45.7d (prime focus box orientation):
+rayAddSurface prime_plane 0 0 0 0 1			\
+			[0,0,0]&[0,0,0.798]			\
+			"cylinder"@[0,0,0]&[1,0,0] 1
+rayAddSurface subreflector  -0.133110 0.528 0 0 -1\
+			4.8935 -0.4772 0     0 0 -0.097214 \
+			"cone"@[0,0,0]&[1,0,0]1
+rayAddSurface greg_plane 0 0 0 0 1 \
+			[-10.9481,1.0677,0]&[0,0,+0.312414] \
+			"cylinder"@[0,0,0]&[1,0,0]1
+rayPrtSystem
+
+# Generate plane wave at origin (prime focus), 100m diameter 54m offaxis
+# grid spacing 0.1388mr=28.63asec corresponds to 2.1in-spacing Q-band horns.
+# feed taper is -13db at 15d=0.26rad
+rayGenerator "plane"@[0,-54,0]&[1,0,0]50 \
+			0.0001388,2,2,4	0.26,-13.0	2,13 "bundle"
+
+rayTrace 
+rayGetFoci
+rayPrtFoci
+rayPltSystem
+rayPltPS [12,10] 100.0 [-20,-47,0] orthographic rayTestCase1a.ps
+rayPltPS [10,10] 0.10 [-10.9481,1.0677,0] orthographic rayTestCase1b.ps
+Quit

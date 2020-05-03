@@ -1,0 +1,81 @@
+# Testcase4: GBT#146 tracing M-G#01_LA0_267 lens with 100m object
+# D.Wells, NRAO-CV, 1996-03-04
+# -=-=-=-=-=-=-=- Begin Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
+# Copyright (C) 1996 Associated Universities, Inc. Washington DC, USA.
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# 
+# Correspondence concerning GBT software should be addressed as follows:
+# GBT Operations, National Radio Astronomy Observatory, P. O. Box 2,
+# Green Bank, WV 24944-0002 USA
+#
+# -=-=-=-=-=-=-=- End Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Command=<Digits 4 0.00001>
+# Command=<System M-G#01_LA0_267/100m>
+# Diameter is 80mm, focal length 300mm
+# prescription from GBT Memo #146, p.2 and p.3
+# R1=+197.87,R2=-133.70,R3=-509.460
+# d1_2=12.5mm, d2_3=7.1mm, focus about 300mm to right.
+# n1_2=1.55748578, n2_3=1.65948973
+# Command=<rayAddSurface front +0.00505382 0 0 0 0.64206044 0 0 0 0 0 0 cyli|
+#         |nder 0 0 0 1 0 0 40>
+# Command=<rayAddSurface middle -0.00747943 0 0 0 0.93853294 12.5 0 0 0 0 0 |
+#         |cylinder 0 0 0 1 0 0 40>
+# Command=<rayAddSurface rear -0.00196286 0 0 0 1.65948973 19.6 0 0 0 0 0 cy|
+#         |linder 0 0 0 1 0 0 40>
+# Command=<rayAddSurface focus 0 0 0 0 1 297.79 0 0 0 0 0 cylinder 300.0 0 0|
+#         | 1 0 0 10>
+# Command=<rayPrtSystem>
+
+	-=-< M-G#01_LA0_267/100m >-=-
+Surface Properties:
+ i         name          curv    eps     A_2    A_4       mu
+--      --------        -----   ----    ----   ----     ----
+ 1         front   0.00505382       0      0      0  0.64206
+ 2        middle  -0.00747943       0      0      0  0.93853
+ 3          rear  -0.00196286       0      0      0   1.6595
+ 4         focus            0       0      0      0        1
+Vertex Positions and Tilts:
+ i          name       S[0]     S[1]     S[2]       E[0]      E[1]      E[2]
+--     ---------       ----     ----     ----      -----     -----     -----
+ 1         front     0.0000   0.0000   0.0000    0.00000   0.00000   0.00000
+ 2        middle    12.5000   0.0000   0.0000    0.00000   0.00000   0.00000
+ 3          rear    19.6000   0.0000   0.0000    0.00000   0.00000   0.00000
+ 4         focus   297.7900   0.0000   0.0000    0.00000   0.00000   0.00000
+
+# Generate spherical wave from object point 100m in front,
+# to expand to 80mm diameter at lens:
+# Command=<rayGenerator spherical -150000 0 0 1 0 0 0.00020 50000 2 4 4 0.1 |
+#         |-0.001 2 13 bundle>
+# Command=<rayTrace>
+# Command=<rayGetFoci>
+# Command=<rayPrtFoci>
+
+		-=-< spherical, r=0.0002 >-=-
+  i          bundle_name   n       xc       yc       zc       lc     xs     ys     zs     ls
+ --     ---------------- ---   ------   ------   ------  -------  -----  -----  -----  -----
+  1           -1e+05 0 0  49 311.0189  -0.0000  -0.0000389690.6613 1.6563 0.1934 0.1934 1.6785
+  2           -5e+04 0 0  49 310.5959  -0.0000   0.0000311815.1693 0.2909 0.0224 0.0224 0.2925
+  3                0 0 0  49 310.9871   0.0000  -0.0000233941.6509 0.1541 0.0102 0.0102 0.1547
+  4            5e+04 0 0  49 311.5259   0.0000   0.0000156068.1542 0.0657 0.0031 0.0031 0.0658
+  5            1e+05 0 0  49 312.6027  -0.0000   0.000078195.0877 0.0160 0.0004 0.0004 0.0160
+
+# Command=<rayPltSystem>
+# Command=<rayPltPS 5 13 130000 -50000 0 0 orthographic rayTestCase4a.ps>
+# Command=<rayPltPS 10 10 2.0 311 0 0 orthographic rayTestCase4b.ps>
+# Command=<Quit>
+# rayMain: memory not fully recovered:
+#             NODE_PRIVATE.N_CALLOC = 15

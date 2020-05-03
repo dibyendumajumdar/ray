@@ -1,0 +1,82 @@
+# Testcase#2: spherical waves from proposed 40-50_GHz feedhorns through GBT
+# D.Wells, NRAO-CV, 1995-07-28,08-29.
+# -=-=-=-=-=-=-=- Begin Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
+# Copyright (C) 1995 Associated Universities, Inc. Washington DC, USA.
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# 
+# Correspondence concerning GBT software should be addressed as follows:
+# GBT Operations, National Radio Astronomy Observatory, P. O. Box 2,
+# Green Bank, WV 24944-0002 USA
+#
+# -=-=-=-=-=-=-=- End Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Command=<Digits 4 0.00001>
+# Command=<System GBT_Gregorian_at_44d>
+#	unit is meters. origin at prime focus. cone from feedhorn to right.
+#	eps=0.528, e=5.5m, a=e/eps=10.4167m, b=sqrt(a^2-e^2)=8.8463m
+#	r0=b^2/a=7.5126m, c=1/r0=0.133110, d=a-e=4.91667m
+#	alpha=17.89878d=0.312393r, beta=5.56996d=0.097214r
+#	vertex=(F1+d*cos(beta),F1-d*sin(beta),0)&(0,0,-beta)
+#	the_big_mirror: fp=60.0m, r0=120.0m, c=1/r0=0.0083333
+# Command=<rayAddSurface subreflector -0.133110 0.528 0 0 -1 4.89346 -0.4772|
+#         |17 0 0 0 -0.097214 cone 0 0 0 1 0 0 1>
+#       tilt prime focus plane to 45.7d (prime focus box orientation):
+# Command=<rayAddSurface prime_plane 0 0 0 0 1 0 0 0 0 0 0.798 cylinder 0 0 |
+#         |0 1 0 0 1>
+# Command=<rayAddSurface main_mirror +0.0083333333 1 0 0 -1 -60 0 0 0 0 0 cy|
+#         |linder -60 -54 0 1 0 0 50>
+# Command=<rayAddSurface prime_plane 0 0 0 0 1 0 0 0 0 0 0 cylinder 0 0 0 1 |
+#         |0 0 1>
+#	Generate spherical waves at Gregorian feedhorn(s):
+#	greg_focus=(F1-2e*cos(beta),F1+2e*sin(beta),0),
+#		cone tilted by (alpha-beta)=(17.89878d-5.56996d)=12.32882d
+#		cone half-angle=14.993d=0.261677r
+#	feed taper is -13db at 15d=0.26rad; sphere_wave_origins in 26.67_mm grid
+# gx=-10.94806m, gy=  1.06767m, delta=  0.02667m, (alpha-beta)=12.32882d
+# Command=<SetName 1L/R_-26.67_+26.67>
+# Command=<rayGenerator spherical -10.94237 1.04162 0.02667 +0.976938 +0.213|
+#         |522 0 0.261677 0.02667 0 3 4 0.261677 -13.0 2 13 bundle>
+# Command=<SetName 2L/R_-26.67_-26.67>
+# Command=<rayGenerator spherical -10.94237 1.04162 -0.02667 +0.976938 +0.21|
+#         |3522 0 0.261677 0.02667 0 3 4 0.261677 -13.0 2 13 bundle>
+# Command=<SetName 3L/R_+26.67_+26.67>
+# Command=<rayGenerator spherical -10.95376 1.09373 0.02667 +0.976938 +0.213|
+#         |522 0 0.261677 0.02667 0 3 4 0.261677 -13.0 2 13 bundle>
+# Command=<SetName 4L/R_+26.67_-26.67>
+# Command=<rayGenerator spherical -10.95376 1.09373 -0.02667 +0.976938 +0.21|
+#         |3522 0 0.261677 0.02667 0 3 4 0.261677 -13.0 2 13 bundle>
+# Command=<SetName On_Axis_reference>
+# Command=<rayGenerator spherical -10.94806 1.06767 0.00000 +0.976938 +0.213|
+#         |522 0 0.261677 0.02667 0 3 4 0.261677 -13.0 2 13 bundle>
+# Command=<rayTrace>
+# Command=<rayGetPlanes -54 0 50 silent>
+# Command=<rayPrtPlanes>
+
+		-=-< spherical, r=0.26167 >-=-
+                              A_0000 A_2000 A_4000 A_1010 A_1011 A_3010 A_3011 A_2020 A_2021
+  i      bundle_name      n  Zero_Pt  Defoc Sph_Ab   Tilt  <sin>   Coma  <sin> Astigm  <sin>
+ -- -------------------- --  -------  -----  -----  -----  -----  -----  -----  -----  -----
+  1   1L/R_-26.67_+26.67 49 140.8334               -.1381  .1388                            
+  2   2L/R_-26.67_-26.67 49 140.8334               -.1381 -.1388                            
+  3   3L/R_+26.67_+26.67 49 140.8334                .1395  .1388                            
+  4   4L/R_+26.67_-26.67 49 140.8334                .1395 -.1388                            
+  5    On_Axis_reference 49 140.8333                .0009                                   
+
+# Command=<rayPltPS 10 10 0.10 -10.9481 1.0677 0 orthographic rayTestCase2a.|
+#         |ps>
+# Command=<Quit>
+# rayMain: memory not fully recovered:
+#             NODE_PRIVATE.N_CALLOC = 13

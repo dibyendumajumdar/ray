@@ -1,0 +1,61 @@
+# Testcase4: GBT#146 tracing M-G#01_LA0_267 lens with 100m object
+# D.Wells, NRAO-CV, 1996-03-04
+
+# -=-=-=-=-=-=-=- Begin Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#
+# Copyright (C) 1996 Associated Universities, Inc. Washington DC, USA.
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# 
+# Correspondence concerning GBT software should be addressed as follows:
+# GBT Operations, National Radio Astronomy Observatory, P. O. Box 2,
+# Green Bank, WV 24944-0002 USA
+#
+# -=-=-=-=-=-=-=- End Copyright Notice -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Digits 4 0.00001
+
+System M-G#01_LA0_267/100m
+# Diameter is 80mm, focal length 300mm
+# prescription from GBT Memo #146, p.2 and p.3
+# R1=+197.87,R2=-133.70,R3=-509.460
+# d1_2=12.5mm, d2_3=7.1mm, focus about 300mm to right.
+# n1_2=1.55748578, n2_3=1.65948973
+rayAddSurface "front" +0.00505382 0 0 0 0.64206044 \
+			[0,0,0]&[0,0,0]		\
+			"cylinder"@[0,0,0]&[1,0,0] 40 
+rayAddSurface "middle" -0.00747943 0 0 0 0.93853294 \
+			[12.5,0,0]&[0,0,0]		\
+			"cylinder"@[0,0,0]&[1,0,0] 40 
+rayAddSurface "rear" -0.00196286 0 0 0 1.65948973 \
+			19.6 0 0     0 0 0 \
+			"cylinder"@[0,0,0]&[1,0,0] 40 
+rayAddSurface "focus" 0 0 0 0 1 \
+			[297.79,0,0]&[0,0,0] \
+			"cylinder"@[300.0,0,0]&[1,0,0]10
+rayPrtSystem
+
+# Generate spherical wave from object point 100m in front,
+# to expand to 80mm diameter at lens:
+rayGenerator "spherical"@[-150000,0,0]&[1,0,0]0.00020 \
+			50000,2,4,4	0.1,-0.001	2,13 "bundle"
+
+rayTrace 
+rayGetFoci
+rayPrtFoci
+rayPltSystem
+rayPltPS [5, 13] 130000 [-50000,0,0] orthographic rayTestCase4a.ps
+rayPltPS [10,10]  2.0 [311,0,0] orthographic rayTestCase4b.ps
+Quit
