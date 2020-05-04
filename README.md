@@ -31,7 +31,9 @@ or to hand-execute equivalent operations. [NOT YET TESTED]
 The source files of library 'ray' and program 'rayMain' are
 being made available under a **GNU "copyleft"** license. See file
 "GNU_GPL_2.txt" in the ray distribution kit.  Each of the source files
-begins with a copyright notice: "Copyright (C) 1995 Associated
+begins with a copyright notice: 
+
+> "Copyright (C) 1995 Associated
 Universities, Inc. Washington DC, USA. This program is free software;
 you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation.."
