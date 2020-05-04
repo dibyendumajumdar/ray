@@ -26,8 +26,10 @@ On other Unix machines, it should only be necessary to change the CC
 definition. On PCs, it may be necessary to transliterate the Makefile,
 or to hand-execute equivalent operations. [NOT YET TESTED]
 
-Copyright: The source files of library 'ray' and program 'rayMain' are
-being made available under a GNU "copyleft" license. See file
+## Copyright/LICENSE
+
+The source files of library 'ray' and program 'rayMain' are
+being made available under a **GNU "copyleft"** license. See file
 "GNU_GPL_2.txt" in the ray distribution kit.  Each of the source files
 begins with a copyright notice: "Copyright (C) 1995 Associated
 Universities, Inc. Washington DC, USA. This program is free software;
@@ -45,3 +47,8 @@ package to create, delete and check the validity of list nodes. Also
 function `rayPltPS()` was changed to permit overwriting previously
 existing output files. Several other erroneous `free()` operations were
 found, and then a systematic search found all memory leaks. -Don Wells
+
+## Additional Notes
+
+The software was obtained from NRAO ftp site. 
+The original author is [Donald C. Wells](https://www.cv.nrao.edu/~dwells/).
