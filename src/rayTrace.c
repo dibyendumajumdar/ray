@@ -99,7 +99,7 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 		strcpy(segname, System->item);
 		strcat(segname, "; ");
 		strcat(segname, finalname);
-		listFree(Segments->item); /* 1998-10-25: recover this segment! */
+		listFree(Segments->item, ""); /* 1998-10-25: recover this segment! */
 		Segments->item = segname;
 	}
 

@@ -2,36 +2,36 @@ cmake_minimum_required(VERSION 3.12)
 project(ray VERSION 0.0.1 LANGUAGES C)
 
 set(HEADERS
-        ray.h
-        mathVectorMatrix.h
-        gbtOpticalConstants.h)
+        src/ray.h
+        src/mathVectorMatrix.h
+        src/gbtOpticalConstants.h)
 
 set(SRCS
-        rayTrace.c
-        rayAddSurface.c
-        rayPrtSystem.c
-        rayGenerator.c
-        rayPrtBundles.c
-        rayPrtSegments.c
-        rayPltPS.c
-        rayPltSystem.c
-        rayGetFoci.c
-        rayPrtFoci.c
-        rayGetPlanes.c
-        rayPrtPlanes.c
-        listAppend.c
-        listDeleteList.c
-        listDeleteListList.c
-        listDeleteNext.c
-        listInitialize.c
-        listInsertAfter.c
-        listNodeCreate.c
-        listNodeDelete.c
-        listNodeCheck.c
-        listAlloc.c
-        listFree.c
-        mathZernike.c
-        mathSyminv2.c
+        src/rayTrace.c
+        src/rayAddSurface.c
+        src/rayPrtSystem.c
+        src/rayGenerator.c
+        src/rayPrtBundles.c
+        src/rayPrtSegments.c
+        src/rayPltPS.c
+        src/rayPltSystem.c
+        src/rayGetFoci.c
+        src/rayPrtFoci.c
+        src/rayGetPlanes.c
+        src/rayPrtPlanes.c
+        src/listAppend.c
+        src/listDeleteList.c
+        src/listDeleteListList.c
+        src/listDeleteNext.c
+        src/listInitialize.c
+        src/listInsertAfter.c
+        src/listNodeCreate.c
+        src/listNodeDelete.c
+        src/listNodeCheck.c
+        src/listAlloc.c
+        src/listFree.c
+        src/mathZernike.c
+        src/mathSyminv2.c
         )
 
 message("SOURCE dir is ${ray_SOURCE_DIR}")
@@ -53,9 +53,10 @@ include(GNUInstallDirs)
 
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
+include_directories("${RaviCompiler_SOURCE_DIR}/src")
 add_library(ray STATIC
         ${HEADERS}
         ${SRCS})
 
-add_executable(raymain rayMain.c)
+add_executable(raymain src/rayMain.c)
 target_link_libraries(raymain ray)
