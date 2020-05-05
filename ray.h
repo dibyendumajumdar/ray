@@ -257,6 +257,10 @@ void listDeleteList (struct Node *list)        /* list of items */
 ; 
 int listDeleteNext(struct Node *t)             /* ptr to node in a list */
 ; 
+void listFree(                                      /* no return */
+	void* p,           /* pointer to segment to be freed */
+	char text[])		/* descriptive text about segment */
+;
 
 int mathZernike(                       /* returns #coeffs in u[] & ui[]    */
 		double r,              /* radius in range 0-->1.0          */
