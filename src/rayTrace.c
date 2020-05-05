@@ -183,12 +183,21 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 				   code to enable comparison with the Feder paper; the
 				   optimizing compiler will eliminate it from the
 				   expressions. */
+				/* R->Q[0] is X, R->Q[1] is Y and R->Q[2] is Z */
+				/* (X,Y,Z) is the vector along the ray to the surface */
+				/* R->T[0] is x, R->T[1] is y and R->T[3] is z */
+				/* (x,y,z) is the vector form of the vertex of the surface */
+				/* Feder paper equation (1) */
 				e = (t * R->Q[0]) - VECTOR_DOT(VC, R->T, VC, R->Q);
+				/* Feder paper equation (2) */
 				M_1x = R->T[0] + e * R->Q[0] - t;
+				/* Feder paper equation (3) */
 				M_1_2 = VECTOR_DOT(VC, R->T, VC, R->T) - (e * e) + (t * t) - (2.0 * t * R->T[0]);
 				r_1_2 = 1. / (S->c_1 * S->c_1);
-				if (M_1_2 > r_1_2)
+				if (M_1_2 > r_1_2) {
 					M_1_2 = r_1_2; /* SPECIAL RULE! 96-01-22 */
+				}
+				/* Feder paper equation (4) */
 				xi_1 = sqrt((R->Q[0] * R->Q[0]) - S->c_1 * (S->c_1 * M_1_2 - 2.0 * M_1x));
 				if (isnan(xi_1)) { /* NaN! reject this ray! */
 					ray_reject = bundle_reject = TRUE;
@@ -196,6 +205,7 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 					n_NaN_a++;
 					break;
 				}
+				/* Feder paper equation (5) */
 				L = e + (S->c_1 * M_1_2 - 2.0 * M_1x) / (R->Q[0] + xi_1);
 
 				/* Get intercept with new (spherical) surface: */
@@ -203,6 +213,7 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 					delta_length[j] = -R->T[j];
 				VECTOR_EXTEND(VC, R->T, VC, R->Q, L);
 				R->T[0] -= t;
+				/* Now R->T has x1, y1, z1 */
 
 				/* The ray has been traced to the osculating sphere with
 				   curvature c1. Now we will iterate to get the intercept with
