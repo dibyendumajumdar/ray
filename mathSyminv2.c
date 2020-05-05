@@ -35,64 +35,65 @@
    matricies. D.Wells, NRAO-CV, 1995-08-01. */
 
 #include "ray.h"
-#define A(I,J) a[I*dim2+J]
+#define A(I, J) a[I * dim2 + J]
 
-int mathSyminv2(                   /* returns TRUE if matrix is singular    */
-		double a[],        /* input a[n][n], overwritten by inverse */
-		int n,             /* order of 2-D matrix                   */
-		int dim2)          /* size of fastest changing axis         */
+int mathSyminv2(	    /* returns TRUE if matrix is singular    */
+		double a[], /* input a[n][n], overwritten by inverse */
+		int n,	    /* order of 2-D matrix                   */
+		int dim2)   /* size of fastest changing axis         */
 {
-    double       *p, *q, bigajj;
-    int          *r, i, j, k, fail=FALSE;
+	double *p, *q, bigajj;
+	int *r, i, j, k, fail = FALSE;
 
-    if ((q = (double *) listAlloc(n, sizeof(double))) == NULL) {
-	printf("mathSyminv2: could not malloc q[%d]!?!\n", n);
-	exit(EXIT_FAILURE);
-    }
-    if ((p = (double *) listAlloc(n, sizeof(double))) == NULL) {
-	printf("mathSyminv2: could not malloc p[%d]!?!\n", n);
-	exit(EXIT_FAILURE);
-    }
-    if ((r = (int *) listAlloc(n, sizeof(int))) == NULL) {
-	printf("mathSyminv2: could not malloc r[%d]!?!\n", n);
-	exit(EXIT_FAILURE);
-    }
-    for (i = 0; i < n; i++) r[i] = TRUE;
-    for (i = 0; i < n; i++) {                         /* grand loop */
-	for (j = 0, bigajj = 0.0; j < n; j++)         /* search for pivot */
-	    if (r[j] && (fabs(A(j,j)) > bigajj)) {
-		bigajj = fabs(A(j,j));
-		k = j;
-	    }
-	if (bigajj == 0.0) {
-	    printf("mathSyminv2: matrix a[%d][%d] is singular!?!\n", n, n);
-	    fail = TRUE;
-	    break;
+	if ((q = (double *)listAlloc(n, sizeof(double))) == NULL) {
+		printf("mathSyminv2: could not malloc q[%d]!?!\n", n);
+		exit(EXIT_FAILURE);
 	}
-	r[k] = FALSE;               /* preparation of elimination step i */
-	q[k] = 1.0 / A(k,k);
-	p[k] = 1.0;
-	A(k,k) = 0.0;
-	for (j = 0; j < k; j++) {
-	    p[j] = A(j,k);
-	    q[j] = (r[j] ? -A(j,k) : +A(j,k)) * q[k];
-	    A(j,k) = 0.0;
+	if ((p = (double *)listAlloc(n, sizeof(double))) == NULL) {
+		printf("mathSyminv2: could not malloc p[%d]!?!\n", n);
+		exit(EXIT_FAILURE);
 	}
-	for (j = k+1; j < n; j++) {
-	    p[j] = r[j] ? +A(k,j) : -A(k,j);
-	    q[j] = -A(k,j) * q[k];
-	    A(k,j) = 0.0;
-	} 
-	for (j = 0; j < n; j++)                   /* elimination proper */
-	    for (k = j; k < n; k++)
-		A(j,k) += p[j] * q[k];
-    }
-    if (!fail)                              /* copy to lower triangular */
-	for (k = 0; k < (n - 1); k++)
-	    for (j = (k + 1); j < n; j++)
-		A(j,k) = A(k,j);
-    listFree(p, "m.S: p");
-    listFree(q, "m.S: q");
-    listFree(r, "m.S: r");
-    return(fail);
+	if ((r = (int *)listAlloc(n, sizeof(int))) == NULL) {
+		printf("mathSyminv2: could not malloc r[%d]!?!\n", n);
+		exit(EXIT_FAILURE);
+	}
+	for (i = 0; i < n; i++)
+		r[i] = TRUE;
+	for (i = 0; i < n; i++) {		      /* grand loop */
+		for (j = 0, bigajj = 0.0; j < n; j++) /* search for pivot */
+			if (r[j] && (fabs(A(j, j)) > bigajj)) {
+				bigajj = fabs(A(j, j));
+				k = j;
+			}
+		if (bigajj == 0.0) {
+			printf("mathSyminv2: matrix a[%d][%d] is singular!?!\n", n, n);
+			fail = TRUE;
+			break;
+		}
+		r[k] = FALSE; /* preparation of elimination step i */
+		q[k] = 1.0 / A(k, k);
+		p[k] = 1.0;
+		A(k, k) = 0.0;
+		for (j = 0; j < k; j++) {
+			p[j] = A(j, k);
+			q[j] = (r[j] ? -A(j, k) : +A(j, k)) * q[k];
+			A(j, k) = 0.0;
+		}
+		for (j = k + 1; j < n; j++) {
+			p[j] = r[j] ? +A(k, j) : -A(k, j);
+			q[j] = -A(k, j) * q[k];
+			A(k, j) = 0.0;
+		}
+		for (j = 0; j < n; j++) /* elimination proper */
+			for (k = j; k < n; k++)
+				A(j, k) += p[j] * q[k];
+	}
+	if (!fail) /* copy to lower triangular */
+		for (k = 0; k < (n - 1); k++)
+			for (j = (k + 1); j < n; j++)
+				A(j, k) = A(k, j);
+	listFree(p, "m.S: p");
+	listFree(q, "m.S: q");
+	listFree(r, "m.S: r");
+	return (fail);
 }

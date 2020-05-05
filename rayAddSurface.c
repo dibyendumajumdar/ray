@@ -26,45 +26,43 @@
 
 #include "ray.h"
 
-struct Node *rayAddSurface(                    /* returns ptr to new node     */
-			   struct Node *list,  /* list of surfaces            */
-			   char surfname[],    /* descriptive string          */
-			   double curvature,   /* 1/r                         */
-			   double epsilon,     /* eccentricity of conic       */
-			   double A_2,         /* deformation terms           */
-			   double A_4,
-			   double index_ratio, /* N/N_1, -1 means mirror      */
-			   double S[],         /* XYZ of vertex               */
-			   double E[],         /* Euler angles of vertex tilt */
-			   enum VignetteType
-			          vign_type,   /* VIGN_CYLINDER | VIGN_CONE   */
-			   double VO[],        /* vignette origin XYZ         */
-			   double VV[],        /* vignette direction cosines  */
-			   double VR)          /* radius, linear | radians    */
+struct Node *rayAddSurface(				   /* returns ptr to new node     */
+			   struct Node *list,		   /* list of surfaces            */
+			   char surfname[],		   /* descriptive string          */
+			   double curvature,		   /* 1/r                         */
+			   double epsilon,		   /* eccentricity of conic       */
+			   double A_2,			   /* deformation terms           */
+			   double A_4, double index_ratio, /* N/N_1, -1 means mirror      */
+			   double S[],			   /* XYZ of vertex               */
+			   double E[],			   /* Euler angles of vertex tilt */
+			   enum VignetteType vign_type,	   /* VIGN_CYLINDER | VIGN_CONE   */
+			   double VO[],			   /* vignette origin XYZ         */
+			   double VV[],			   /* vignette direction cosines  */
+			   double VR)			   /* radius, linear | radians    */
 {
-  int l;
-  struct Surface *s;
+	int l;
+	struct Surface *s;
 
-  s = (struct Surface *) listAlloc(1, sizeof(struct Surface));
-  l = strlen(surfname);
-  if (l < (NAMEMAX-1))
-      strcpy(s->name, surfname);
-  else {
-      strncpy (s->name, surfname, (NAMEMAX-2));
-      s->name[NAMEMAX-1] = '\0';
-  }
-  s->c_1 = curvature;
-  s->eps = epsilon;
-  s->a_2 = A_2;
-  s->a_4 = A_4;
-  s->mu_1 = index_ratio;
-  s->vign_type = vign_type;
-  s->vign_radius = VR;
-  for (l = 0; l < 3; l++) {
-    s->S[l] = S[l];
-    s->E[l] = E[l];
-    s->vign_origin[l] = VO[l];
-    s->vign_vector[l] = VV[l];
-  }
-  return(listAppend(s, list));
+	s = (struct Surface *)listAlloc(1, sizeof(struct Surface));
+	l = strlen(surfname);
+	if (l < (NAMEMAX - 1))
+		strcpy(s->name, surfname);
+	else {
+		strncpy(s->name, surfname, (NAMEMAX - 2));
+		s->name[NAMEMAX - 1] = '\0';
+	}
+	s->c_1 = curvature;
+	s->eps = epsilon;
+	s->a_2 = A_2;
+	s->a_4 = A_4;
+	s->mu_1 = index_ratio;
+	s->vign_type = vign_type;
+	s->vign_radius = VR;
+	for (l = 0; l < 3; l++) {
+		s->S[l] = S[l];
+		s->E[l] = E[l];
+		s->vign_origin[l] = VO[l];
+		s->vign_vector[l] = VV[l];
+	}
+	return (listAppend(s, list));
 }

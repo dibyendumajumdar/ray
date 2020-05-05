@@ -7,9 +7,9 @@ set(HEADERS
         gbtOpticalConstants.h)
 
 set(SRCS
-        rayTrace.c 
-        rayAddSurface.c 
-        rayPrtSystem.c 
+        rayTrace.c
+        rayAddSurface.c
+        rayPrtSystem.c
         rayGenerator.c
         rayPrtBundles.c
         rayPrtSegments.c
@@ -39,7 +39,7 @@ message("SOURCE dir is ${ray_SOURCE_DIR}")
 if (WIN32)
     # disable warnings about C string functions
     add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
-endif()
+endif ()
 
 if (NOT MSVC)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra -Wshadow -Wsign-compare -Wundef -Wwrite-strings \
@@ -47,7 +47,7 @@ if (NOT MSVC)
     	-Wlogical-op -Wno-aggressive-loop-optimizations \
         -Wmissing-prototypes -Wnested-externs \
         -Wstrict-prototypes -Werror=return-type -Wall -Wno-unused-parameter") # -Wc++-compat
-endif()
+endif ()
 
 include(GNUInstallDirs)
 

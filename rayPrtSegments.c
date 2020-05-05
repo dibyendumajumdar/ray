@@ -27,46 +27,38 @@
 
 #include "ray.h"
 
-void rayPrtSegments(struct Node *list,         /* list of ray segments       */
-		    int d)                     /* digits after decimal point */
+void rayPrtSegments(struct Node *list, /* list of ray segments       */
+		    int d)	       /* digits after decimal point */
 {
-  struct Node *t;
-  struct Segment *s;
-  int i;
-  const int w=10;
-  char head_format[FORMMAX], body_format[FORMMAX];
+	struct Node *t;
+	struct Segment *s;
+	int i;
+	const int w = 10;
+	char head_format[FORMMAX], body_format[FORMMAX];
 
-  if ((t = list) == NULL) {
-    printf("rayPrtSegments: list==NULL -->ABORT!\n");
-    exit(EXIT_FAILURE);
-  }
-  printf("\n\t-=-< %s >-=-\n\n", (char *) t->item);
-  i = 0;
-  while (t->next->next != t->next) {
-    t = t->next;
-    s = (struct Segment *) t->item;
-    i++;
-    if (i == 1) {
-      sprintf(head_format,
-	     "%%4s %%%ds%%%ds%%%ds %%%ds%%%ds%%%ds %%3s\n",
-	      w, w, w, w, w, w);
-      sprintf(body_format,
-	     "%%4d %%%d.%dlf%%%d.%dlf%%%d.%dlf %%%d.%dlf%%%d.%dlf%%%d.%dlf %%3d\n",
-	      w, d, w, d, w, d, w, d, w, d, w, d);
-      printf(head_format,
-	     "i", "T1[0] ", "T1[1] ", "T1[2] ",
-	     "T2[0] ", "T2[1] ", "T2[2] ", "Code");
-      printf(head_format,
-	     "--", "-------", "-------", "-------",
-	      "-------", "-------", "-------", "---");
-    }
-    printf(body_format, i,
-	   s->T1[0], s->T1[1], s->T1[2],
-	   s->T2[0], s->T2[1], s->T2[2], s->ColorCode);
-  }
-  if (i == 0) {
-    printf("rayPrtSegments: list <%s> is empty.\n\n", (char *) t->item);
-  } else {
-    printf("\n");
-  }
+	if ((t = list) == NULL) {
+		printf("rayPrtSegments: list==NULL -->ABORT!\n");
+		exit(EXIT_FAILURE);
+	}
+	printf("\n\t-=-< %s >-=-\n\n", (char *)t->item);
+	i = 0;
+	while (t->next->next != t->next) {
+		t = t->next;
+		s = (struct Segment *)t->item;
+		i++;
+		if (i == 1) {
+			sprintf(head_format, "%%4s %%%ds%%%ds%%%ds %%%ds%%%ds%%%ds %%3s\n", w, w, w, w, w, w);
+			sprintf(body_format, "%%4d %%%d.%dlf%%%d.%dlf%%%d.%dlf %%%d.%dlf%%%d.%dlf%%%d.%dlf %%3d\n", w,
+				d, w, d, w, d, w, d, w, d, w, d);
+			printf(head_format, "i", "T1[0] ", "T1[1] ", "T1[2] ", "T2[0] ", "T2[1] ", "T2[2] ", "Code");
+			printf(head_format, "--", "-------", "-------", "-------", "-------", "-------", "-------",
+			       "---");
+		}
+		printf(body_format, i, s->T1[0], s->T1[1], s->T1[2], s->T2[0], s->T2[1], s->T2[2], s->ColorCode);
+	}
+	if (i == 0) {
+		printf("rayPrtSegments: list <%s> is empty.\n\n", (char *)t->item);
+	} else {
+		printf("\n");
+	}
 }
