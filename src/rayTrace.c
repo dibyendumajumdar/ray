@@ -237,6 +237,7 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 				j = 0;
 				do {
 					/* Get square of radius of intercept: */
+					/* Feder equation s^2 = y^2 + z^2, section E */
 					s_2 = R->T[1] * R->T[1] + R->T[2] * R->T[2];
 
 					/* Get the point on aspheric which is at the same radius as
@@ -246,6 +247,7 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 					   surface.  The first step is to compute the x-coordinate
 					   on the aspheric surface using $\overline{x}_0 = f(y_0,
 					   z_0)$. */
+					/* (1 - c^2*s^2)^(1/2) - part of equation (12) */
 					temp = sqrt(1.0 - S->c_1 * S->c_1 * s_2 * (1.0 - S->eps * S->eps));
 					if (isnan(temp)) {
 						ray_reject = bundle_reject = TRUE;
@@ -253,14 +255,19 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 						n_NaN_b++;
 						break;
 					}
+					/* Feder equation (12) */
+					/* But using c*s^2/[1 + (1 - c^2*s^2)^(1/2)] + aspheric A_2*s^2 + A_4*s^4 + ... */
 					x_bar_0 = (S->c_1 * s_2) / (1.0 + temp) + (S->a_2 + S->a_4 * s_2) * s_2;
 					delta = fabs(R->T[0] - x_bar_0);
 
 					/* Get the direction numbers for the normal to the
 					   aspheric: */
+					/* Feder equation (13), l */
 					N[0] = temp;
 					temp = S->c_1 + N[0] * (2.0 * S->a_2 + 4.0 * S->a_4 * s_2);
+					/* Feder equation (14), m */
 					N[1] = -R->T[1] * temp;
+					/* Feder equation (15), n */
 					N[2] = -R->T[2] * temp;
 
 					/* Get the distance from aspheric point to ray intercept */
