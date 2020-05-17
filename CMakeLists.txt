@@ -53,10 +53,16 @@ include(GNUInstallDirs)
 
 set(CMAKE_VISIBILITY_INLINES_HIDDEN YES)
 
+# Misc setup
+if (NOT WIN32)
+    set(EXTRA_LIBRARIES m)
+endif ()
+
 include_directories("${RaviCompiler_SOURCE_DIR}/src")
 add_library(ray STATIC
         ${HEADERS}
         ${SRCS})
+target_link_libraries(ray ${EXTRA_LIBRARIES})
 
 add_executable(raymain src/rayMain.c)
 target_link_libraries(raymain ray)
