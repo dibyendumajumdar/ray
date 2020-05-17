@@ -28,12 +28,12 @@
 
 void listNodeCheck(                                      /* no return */
 		   struct Node *node,           /* Node to be checked */
-		   char text[])        /* descriptive text about Node */
+		   const char *text)        /* descriptive text about Node */
 {
   if (node->nodecheck != NODECHECK) {
     printf("listNodeCheck: text=[%s]\n", text);
-    printf("listNodeCheck: nodecheck=%d, node.text=[%7s], node=%8x ! ABORT.\n", 
-	   node->nodecheck, node->text, (unsigned int)node);
+    printf("listNodeCheck: nodecheck=%d, node.text=[%7s], node=%p ! ABORT.\n",
+	   node->nodecheck, node->text, node);
     exit(EXIT_FAILURE);
   }
 }

@@ -39,12 +39,13 @@ void rayPrtPlanes(struct Node *planes_list, /* list of Plane structs      */
 {
 	struct Node *bundle;
 	struct Plane *p;
-	char head[FORMMAX], body[FORMMAX], temp[FORMMAX], form[FORMMAX], *aberrations[AMNIMAX], temp2[FORMMAX], *match;
+	char head[FORMMAX], body[FORMMAX], temp[FORMMAX], form[FORMMAX], temp2[FORMMAX], *match;
+	const char *aberrations[AMNIMAX];
 	double small, val;
 	int i, j, k, w;
 	struct {
-		char *original;
-		char *replace;
+		const char *original;
+		const char *replace;
 	} zeros[] = {{"-0.", " -."}, {" 0.", "  ."}};
 
 	if (planes_list == NULL) {
@@ -96,14 +97,14 @@ void rayPrtPlanes(struct Node *planes_list, /* list of Plane structs      */
 			sprintf(form, "%%%d.%dlf", w, d);
 		}
 		printf(body, i, p->name, p->n, p->Amni[0]);
-		sprintf(temp, "%%%ds", w);
+		snprintf(temp, sizeof temp, "%%%ds", w);
 		for (j = 1; j < p->nu; j++) {
 			val = p->Amni[j];
 			/* convert the Seidel wave tilt terms to milliradians: */
 			if ((p->mni[j] == 1010) || (p->mni[j] == 1011))
 				val *= (1000.0 / p->yz_radius);
 			if (fabs(val) > small) {
-				sprintf(temp2, form, val);
+				snprintf(temp2, sizeof temp2, form, val);
 				for (k = 0; k < 2; k++) { /* delete redundant zeroes */
 					if ((match = strstr(temp2, zeros[k].original)) != NULL) {
 						strncpy(match, zeros[k].replace, 3);

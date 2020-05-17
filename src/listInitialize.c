@@ -27,7 +27,7 @@
 #include "ray.h"
 
 struct Node *listInitialize(                  /* return ptr to new list      */
-			    char *name)       /* descriptive string for list */
+			    const char *name)       /* descriptive string for list */
 {
   struct Node *head, *tail;
 

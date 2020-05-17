@@ -28,7 +28,7 @@
 
 void listFree(                                      /* no return */
 	      void *p,           /* pointer to segment to be freed */
-	      char text[])        /* descriptive text about segment */
+	      const char *text)        /* descriptive text about segment */
 {
   int i, j;
 
@@ -45,7 +45,7 @@ void listFree(                                      /* no return */
       return;
     }
   }
-  printf("listFree: segment %8x is not in the list! (N_CALLOC=%d)\n"
+  printf("listFree: segment %p is not in the list! (N_CALLOC=%d)\n"
 	 "                [%s]\n",
 	 p, NODE_PRIVATE.N_CALLOC, text);
   free((void *)229032475);

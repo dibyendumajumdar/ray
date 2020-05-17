@@ -109,12 +109,12 @@ struct Plane {
 #ifdef SEIDEL
 struct Seidel_item {
 	int mni;    /* A_mni index                     */
-	char *name; /* names of Seidel aberrrations    */
+	const char *name; /* names of Seidel aberrrations    */
 };
 static struct Seidel_item Seidel_list[] = {{0000, "Zero_Pt"}, {2000, "Defoc"},	     {4000, "Sph_Ab"},
 					   {1010, "Tilt"},    {1011, " <sin>"},	     {3010, "Coma"},
 					   {3011, " <sin>"},  {2020, "Astigmatism"}, {2021, " <sin>"}};
-const static int Seidel_n = sizeof(Seidel_list) / sizeof(struct Seidel_item);
+static const int Seidel_n = sizeof(Seidel_list) / sizeof(struct Seidel_item);
 #endif
 
 #define NODECHECK 229032475
@@ -211,17 +211,17 @@ int rayPltPS(			    /* returns non-zero on error     */
 	     char plt_mode[],	    /* "Orthographic"|"Perspective"  */
 	     char psname[])	    /* Postscript output file        */
     ;
-void rayPltPSDeleteHues() /* no args, no return value */
+void rayPltPSDeleteHues(void) /* no args, no return value */
     ;
 void rayPltSystem(			 /* returns lines in segments list */
 		  struct Node *system,	 /* list of optical elements       */
 		  struct Node *segments) /* list of line segments          */
     ;
 struct Node *listNodeCreate(		 /* return ptr to calloc(Node) */
-			    char text[]) /* descriptive text re Node   */
+			    const char *text) /* descriptive text re Node   */
     ;
 struct Node *listInitialize(		/* return ptr to new list      */
-			    char *name) /* descriptive string for list */
+			    const char *name) /* descriptive string for list */
     ;
 struct Node *listAppend(void *newitem,	   /* ptr to new item struct */
 			struct Node *list) /* ptr to existing list   */
@@ -235,11 +235,11 @@ void *listAlloc(		   /* returns calloc() value */
     ;
 void listNodeCheck(		      /* no return */
 		   struct Node *node, /* Node to be checked */
-		   char text[])	      /* descriptive text about Node */
+		   const char *text)	      /* descriptive text about Node */
     ;
 void listNodeDelete(		       /* no return */
 		    struct Node *node, /* Node to be deleted */
-		    char text[])       /* descriptive text about node */
+		    const char *text)       /* descriptive text about node */
     ;
 void listDeleteListList(struct Node *list) /* list of lists of items */
     ;
@@ -249,7 +249,7 @@ int listDeleteNext(struct Node *t) /* ptr to node in a list */
     ;
 void listFree(		   /* no return */
 	      void *p,	   /* pointer to segment to be freed */
-	      char text[]) /* descriptive text about segment */
+	      const char *text) /* descriptive text about segment */
     ;
 
 int mathZernike(	     /* returns #coeffs in u[] & ui[]    */

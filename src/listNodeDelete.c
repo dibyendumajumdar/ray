@@ -28,10 +28,10 @@
 
 void listNodeDelete(                                      /* no return */
 		    struct Node *node,           /* Node to be deleted */
-		    char text[])        /* descriptive text about node */
+		    const char *text)        /* descriptive text about node */
 {
   listNodeCheck(node, text);
-  if (NODE_DEBUG) printf("listNodeDelete: %7s  node=%8x\n", 
-			 node->text, (unsigned int)node);
+  if (NODE_DEBUG) printf("listNodeDelete: %7s  node=%p\n",
+			 node->text, node);
   listFree(node, "l.N.D: node");
 }

@@ -27,7 +27,7 @@
 #include "ray.h"
 
 struct Node *listNodeCreate(                /* return ptr to listAlloc(Node) */
-			    char text[])       /* descriptive text re Node   */
+			    const char *text)       /* descriptive text re Node   */
 {
   struct Node *node;
   
@@ -35,8 +35,8 @@ struct Node *listNodeCreate(                /* return ptr to listAlloc(Node) */
     printf("listNodeCreate: could not listAlloc(1,Node) !?!\n");
     exit(EXIT_FAILURE);
   }
-  if (NODE_DEBUG) printf("listNodeCreate: %7s  node=%8x\n", 
-			 text, (unsigned int)node);
+  if (NODE_DEBUG) printf("listNodeCreate: %7s  node=%p\n",
+			 text, node);
   node->nodecheck = NODECHECK;
   strncpy(node->text, text, NODETEXT-1);
   node->text[NODETEXT] = '\0'; 

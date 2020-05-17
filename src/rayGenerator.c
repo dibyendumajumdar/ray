@@ -71,7 +71,7 @@ void rayGenerator(			     /* no value returned            */
 	const double tiny = 1e-8;
 	int i, j, k, l, ir, jr, si, sj, sk;
 	double dl[3], xyz[3], XYZ[3], rad, sum, q, rb, a[3][3], euler[3], edge;
-	char temp[NAMEMAX];
+	char temp[NAMEMAX*2];
 	struct Ray *r;
 	struct Node *RayBundle;
 	MVM_PRIVATE_VARIABLES;

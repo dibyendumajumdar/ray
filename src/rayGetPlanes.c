@@ -47,7 +47,7 @@ struct Node *rayGetPlanes(			     /* return list of planes */
 	double u[AMNIMAX], a[AMNIMAX * AMNIMAX], r[AMNIMAX], c[AMNIMAX][AMNIMAX];
 	int i, j, nu, ui[AMNIMAX], first_bundle;
 	int nord[] = {4, 3, 2, -1}; /* max_orders for Seidel abberations */
-	char *aberration, nomatch[] = "<no_match>";
+	const char *aberration, nomatch[] = "<no_match>";
 
 	set = RayBundleSet;
 	if (set == NULL) {
