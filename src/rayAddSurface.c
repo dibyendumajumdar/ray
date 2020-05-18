@@ -30,12 +30,12 @@ struct Node *rayAddSurface(				   /* returns ptr to new node     */
 			   struct Node *list,		   /* list of surfaces            */
 			   char surfname[],		   /* descriptive string          */
 			   double curvature,		   /* 1/r                         */
-			   double epsilon,		   /* eccentricity of conic       */
+			   double k,			   /* eccentricity of conic       */
 			   double A_2,			   /* deformation terms           */
 			   double A_4, double index_ratio, /* N/N_1, -1 means mirror      */
 			   double S[],			   /* XYZ of vertex               */
 			   double E[]			   /* Euler angles of vertex tilt */
-			   )
+)
 {
 	int l;
 	struct Surface *s;
@@ -49,7 +49,7 @@ struct Node *rayAddSurface(				   /* returns ptr to new node     */
 		s->name[NAMEMAX - 1] = '\0';
 	}
 	s->c_1 = curvature;
-	s->eps = epsilon;
+	s->k = k;
 	s->a_2 = A_2;
 	s->a_4 = A_4;
 	s->mu_1 = index_ratio;

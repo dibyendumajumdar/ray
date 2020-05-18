@@ -53,10 +53,10 @@ void rayPrtSystem(struct Node *list, /* list of surfaces           */
 			strcat(head_format, " %12s%7s%8s%7s%9s\n");
 			strcat(body_format, " %12.6lg%8.5lg%7.2lg%7.2lg%9.5lg\n");
 			printf("Surface Properties:\n");
-			printf(head_format, "i", "name ", "curv", "eps", "A_2", "A_4", "mu");
+			printf(head_format, "i", "name ", "curv", "k", "A_2", "A_4", "mu");
 			printf(head_format, "--", "--------", "-----", "----", "----", "----", "----");
 		}
-		printf(body_format, i, s->name, s->c_1, s->eps, s->a_2, s->a_4, s->mu_1);
+		printf(body_format, i, s->name, s->c_1, s->k, s->a_2, s->a_4, s->mu_1);
 	}
 
 	t = list; /* list vertex positions & tilts */

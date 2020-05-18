@@ -51,9 +51,14 @@ struct Surface {
 	char name[NAMEMAX]; /* user-supplied descriptive string */
 	double c_1;	    /* curvature c=1/r; positive if center of curvature is
 			       to right of surface. c_1 for following surface */
-	double eps;	    /* numerical eccentricity of the conic section. */
+	double k;	    /* numerical eccentricity of the conic section. */
 	double a_2;	    /* coefficients of radially-symmetric */
 	double a_4;	    /*       aspheric deformation series. */
+	double a_6;
+	double a_8;
+	double a_10;
+	double a_12;
+	double a_14;
 	double mu_1;	    /* $mu_1\equiv N/N_1$, N_1 is index to right
 			       of following surface */
 	double S[3];	    /* absolute vector to vertex of this surface. */

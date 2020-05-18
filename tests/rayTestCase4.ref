@@ -42,7 +42,7 @@
 
 	-=-< M-G#01_LA0_267/100m >-=-
 Surface Properties:
- i         name          curv    eps     A_2    A_4       mu
+ i         name          curv      k     A_2    A_4       mu
 --      --------        -----   ----    ----   ----     ----
  1         front   0.00505382       1      0      0  0.64206
  2        middle  -0.00747943       1      0      0  0.93853
