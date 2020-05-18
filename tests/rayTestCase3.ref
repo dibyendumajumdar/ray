@@ -31,14 +31,13 @@
 # origin at front surface of meniscus. index of glass=1.5163,
 # R1=-152.8mm, d1=10.0mm, R2=-158.6mm, d2=539.1mm, R3=-823.2, and
 # focus lies S'y=420.0mm in front of R3 (camera mirror):
-# Command=<rayAddSurface lens_front -0.00654450 1 0 0 0.65950 0 0 0 0 0 0 cy|
-#         |linder 0 0 0 1 0 0 50>
-# Command=<rayAddSurface lens_rear -0.00630517 1 0 0 1.5163 10.0 0 0 0 0 0 c|
-#         |ylinder 0 0 0 1 0 0 60>
-# Command=<rayAddSurface main_mirror -0.00121477 1 0 0 -1 549.1 0 0 0 0 0 cy|
-#         |linder 0 0 0 1 0 0 80>
-# Command=<rayAddSurface focus 0 0 0 0 1 129.1 0 0 0 0 0 cylinder 129.1 0 0 |
-#         |1 0 0 10>
+# Command=<rayAddSurface lens_front -0.00654450 1 0 0 0.65950 0 0 0 0 0 0 0 |
+#         |0 0 0 0>
+# Command=<rayAddSurface lens_rear -0.00630517 1 0 0 1.5163 10.0 0 0 0 0 0 0|
+#         | 0 0 0 0>
+# Command=<rayAddSurface main_mirror -0.00121477 1 0 0 -1 549.1 0 0 0 0 0 0 |
+#         |0 0 0 0>
+# Command=<rayAddSurface focus 0 0 0 0 1 129.1 0 0 0 0 0 0 0 0 0 0>
 # Command=<rayPrtSystem>
 
 	-=-< Maksutov_camera >-=-

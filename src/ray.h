@@ -59,13 +59,13 @@ struct Surface {
 	double a_10;
 	double a_12;
 	double a_14;
-	double mu_1;	    /* $mu_1\equiv N/N_1$, N_1 is index to right
-			       of following surface */
-	double S[3];	    /* absolute vector to vertex of this surface. */
-	double E[3];	    /* tilt of next vertex, 3 Euler Angles (see
-			       "General Ray-Tracing Procedure",
-			       G.H.Spencer and M.V.R.K.Murty, JOSA 52,
-			       pp.672-678, (June 1962)). */
+	double mu_1; /* $mu_1\equiv N/N_1$, N_1 is index to right
+			of following surface */
+	double S[3]; /* absolute vector to vertex of this surface. */
+	double E[3]; /* tilt of next vertex, 3 Euler Angles (see
+			"General Ray-Tracing Procedure",
+			G.H.Spencer and M.V.R.K.Murty, JOSA 52,
+			pp.672-678, (June 1962)). */
 };
 
 struct Ray {
@@ -109,7 +109,7 @@ struct Plane {
 
 #ifdef SEIDEL
 struct Seidel_item {
-	int mni;    /* A_mni index                     */
+	int mni;	  /* A_mni index                     */
 	const char *name; /* names of Seidel aberrrations    */
 };
 static struct Seidel_item Seidel_list[] = {{0000, "Zero_Pt"}, {2000, "Defoc"},	     {4000, "Sph_Ab"},
@@ -174,8 +174,8 @@ struct Node *rayAddSurface(struct Node *list,		   /* list of surfaces */
 			   double A_2,			   /* deformation terms */
 			   double A_4, double index_ratio, /* N/N_1, -1 means mirror */
 			   double S[],			   /* XYZ of vertex */
-			   double E[]			   /* Euler angles of vertex tilt */
-			   )
+			   double E[],			   /* Euler angles of vertex tilt */
+			   double A_6, double A_8, double A_10, double A_12, double A_14)
     ;
 void rayPrtSystem(struct Node *list, /* list of surfaces           */
 		  int d)	     /* digits after decimal point */
@@ -215,10 +215,10 @@ void rayPltSystem(			 /* returns lines in segments list */
 		  struct Node *system,	 /* list of optical elements       */
 		  struct Node *segments) /* list of line segments          */
     ;
-struct Node *listNodeCreate(		 /* return ptr to calloc(Node) */
+struct Node *listNodeCreate(		      /* return ptr to calloc(Node) */
 			    const char *text) /* descriptive text re Node   */
     ;
-struct Node *listInitialize(		/* return ptr to new list      */
+struct Node *listInitialize(		      /* return ptr to new list      */
 			    const char *name) /* descriptive string for list */
     ;
 struct Node *listAppend(void *newitem,	   /* ptr to new item struct */
@@ -233,11 +233,11 @@ void *listAlloc(		   /* returns calloc() value */
     ;
 void listNodeCheck(		      /* no return */
 		   struct Node *node, /* Node to be checked */
-		   const char *text)	      /* descriptive text about Node */
+		   const char *text)  /* descriptive text about Node */
     ;
 void listNodeDelete(		       /* no return */
 		    struct Node *node, /* Node to be deleted */
-		    const char *text)       /* descriptive text about node */
+		    const char *text)  /* descriptive text about node */
     ;
 void listDeleteListList(struct Node *list) /* list of lists of items */
     ;
@@ -245,8 +245,8 @@ void listDeleteList(struct Node *list) /* list of items */
     ;
 int listDeleteNext(struct Node *t) /* ptr to node in a list */
     ;
-void listFree(		   /* no return */
-	      void *p,	   /* pointer to segment to be freed */
+void listFree(			/* no return */
+	      void *p,		/* pointer to segment to be freed */
 	      const char *text) /* descriptive text about segment */
     ;
 

@@ -34,17 +34,13 @@ System M-G#01_LA0_267/100m
 # d1_2=12.5mm, d2_3=7.1mm, focus about 300mm to right.
 # n1_2=1.55748578, n2_3=1.65948973
 rayAddSurface "front" +0.00505382 1 0 0 0.64206044 \
-			[0,0,0]&[0,0,0]		\
-			"cylinder"@[0,0,0]&[1,0,0] 40 
+			[0,0,0]&[0,0,0] 0 0 0 0 0
 rayAddSurface "middle" -0.00747943 1 0 0 0.93853294 \
-			[12.5,0,0]&[0,0,0]		\
-			"cylinder"@[0,0,0]&[1,0,0] 40 
+			[12.5,0,0]&[0,0,0] 0 0 0 0 0
 rayAddSurface "rear" -0.00196286 1 0 0 1.65948973 \
-			19.6 0 0     0 0 0 \
-			"cylinder"@[0,0,0]&[1,0,0] 40 
+			19.6 0 0     0 0 0 0 0 0 0 0
 rayAddSurface "focus" 0 0 0 0 1 \
-			[297.79,0,0]&[0,0,0] \
-			"cylinder"@[300.0,0,0]&[1,0,0]10
+			[297.79,0,0]&[0,0,0] 0 0 0 0 0
 rayPrtSystem
 
 # Generate spherical wave from object point 100m in front,

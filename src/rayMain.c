@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
 	char *p, *p_set_name = NULL;
 	double xyz[3], XYZ[3], radius, step, angle, db, c, e, a2, a4, mu1, tol = 0.00001, hcm, wcm, wps,
 										       to[3];
+	double a6, a8, a10, a12, a14;
 	int nv, nve, steps, num, code1, code2, d = 4, i, j, k = 65, axis_mask;
 	enum ColorType a_b;
 	struct Node *BundleSet, *System, *Segments, *Temp_List, *Foci, *Planes;
@@ -135,12 +136,14 @@ int main(int argc, char *argv[])
 					/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 				} else if (strcmp(cmd, "rayAddSurface") == 0) {
 					strcpy(form, "%s %s %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf");
+					strcat(form, " %lf %lf %lf %lf %lf");
 					if ((nv = sscanf(line, form, c2, name, &c, &e, &a2, &a4, &mu1, &xyz[0], &xyz[1],
-							 &xyz[2], &XYZ[0], &XYZ[1], &XYZ[2])) != 13) {
-						printf("Expected 13 values, got nv=%d -->ABORT\n", nv);
+							 &xyz[2], &XYZ[0], &XYZ[1], &XYZ[2], &a6, &a8, &a10, &a12, &a14)) != 18) {
+						printf("Expected 18 values, got nv=%d -->ABORT\n", nv);
 						exit(EXIT_FAILURE);
 					}
-					rayAddSurface(System, name, c, e, a2, a4, mu1, xyz, XYZ);
+					rayAddSurface(System, name, c, e, a2, a4, mu1, xyz, XYZ, a6, a8, a10, a12, a14);
+
 					/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 				} else if (strcmp(cmd, "rayPrtSystem") == 0) {
 					rayPrtSystem(System, d);

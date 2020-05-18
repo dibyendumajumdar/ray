@@ -34,7 +34,8 @@ struct Node *rayAddSurface(				   /* returns ptr to new node     */
 			   double A_2,			   /* deformation terms           */
 			   double A_4, double index_ratio, /* N/N_1, -1 means mirror      */
 			   double S[],			   /* XYZ of vertex               */
-			   double E[]			   /* Euler angles of vertex tilt */
+			   double E[],			   /* Euler angles of vertex tilt */
+			   double A_6, double A_8, double A_10, double A_12, double A_14
 )
 {
 	int l;
@@ -52,6 +53,11 @@ struct Node *rayAddSurface(				   /* returns ptr to new node     */
 	s->k = k;
 	s->a_2 = A_2;
 	s->a_4 = A_4;
+	s->a_6 = A_6;
+	s->a_8 = A_8;
+	s->a_10 = A_10;
+	s->a_12 = A_12;
+	s->a_14 = A_14;
 	s->mu_1 = index_ratio;
 	for (l = 0; l < 3; l++) {
 		s->S[l] = S[l];
