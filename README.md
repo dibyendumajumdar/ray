@@ -39,5 +39,5 @@ The original author is [Donald C. Wells](https://www.cv.nrao.edu/~dwells/).
 ## Changes 
 
 * Moved to CMake build
-* Changed eccetricity parameter to `k`, equaivalent to `1-eps^2` in original code
+* Changed eccentricity parameter to `k`, equaivalent to `1-eps^2` in original code
 * Removed unused vignette parameters on surfaces
