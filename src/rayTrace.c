@@ -248,7 +248,7 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 					   on the aspheric surface using $\overline{x}_0 = f(y_0,
 					   z_0)$. */
 					/* (1 - c^2*s^2)^(1/2) - part of equation (12) */
-					temp = sqrt(1.0 - S->c_1 * S->c_1 * s_2 * (1.0 - S->eps * S->eps));
+					temp = sqrt(1.0 - S->c_1 * S->c_1 * s_2 * S->eps);
 					if (isnan(temp)) {
 						ray_reject = bundle_reject = TRUE;
 						n_NaN_rays++;

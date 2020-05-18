@@ -30,11 +30,11 @@
 # R1=+197.87,R2=-133.70,R3=-509.460
 # d1_2=12.5mm, d2_3=7.1mm, focus about 300mm to right.
 # n1_2=1.55748578, n2_3=1.65948973
-# Command=<rayAddSurface front +0.00505382 0 0 0 0.64206044 0 0 0 0 0 0 cyli|
+# Command=<rayAddSurface front +0.00505382 1 0 0 0.64206044 0 0 0 0 0 0 cyli|
 #         |nder 0 0 0 1 0 0 40>
-# Command=<rayAddSurface middle -0.00747943 0 0 0 0.93853294 12.5 0 0 0 0 0 |
+# Command=<rayAddSurface middle -0.00747943 1 0 0 0.93853294 12.5 0 0 0 0 0 |
 #         |cylinder 0 0 0 1 0 0 40>
-# Command=<rayAddSurface rear -0.00196286 0 0 0 1.65948973 19.6 0 0 0 0 0 cy|
+# Command=<rayAddSurface rear -0.00196286 1 0 0 1.65948973 19.6 0 0 0 0 0 cy|
 #         |linder 0 0 0 1 0 0 40>
 # Command=<rayAddSurface focus 0 0 0 0 1 297.79 0 0 0 0 0 cylinder 300.0 0 0|
 #         | 1 0 0 10>
@@ -44,9 +44,9 @@
 Surface Properties:
  i         name          curv    eps     A_2    A_4       mu
 --      --------        -----   ----    ----   ----     ----
- 1         front   0.00505382       0      0      0  0.64206
- 2        middle  -0.00747943       0      0      0  0.93853
- 3          rear  -0.00196286       0      0      0   1.6595
+ 1         front   0.00505382       1      0      0  0.64206
+ 2        middle  -0.00747943       1      0      0  0.93853
+ 3          rear  -0.00196286       1      0      0   1.6595
  4         focus            0       0      0      0        1
 Vertex Positions and Tilts:
  i          name       S[0]     S[1]     S[2]       E[0]      E[1]      E[2]

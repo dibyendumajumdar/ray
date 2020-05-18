@@ -34,14 +34,14 @@ System GBT_Gregorian_at_44d
 #	alpha=17.89878d=0.312393r, beta=5.56996d=0.097214r
 #	vertex=(F1+d*cos(beta),F1-d*sin(beta),0)&(0,0,-beta)
 #	the_big_mirror: fp=60.0m, r0=120.0m, c=1/r0=0.0083333
-rayAddSurface "subreflector"  -0.133110 0.528 0 0 -1\
+rayAddSurface "subreflector"  -0.133110 0.721216 0 0 -1\
 			4.89346 -0.477217 0     0 0 -0.097214 \
 			"cone"@[0,0,0]&[1,0,0]1
 #       tilt prime focus plane to 45.7d (prime focus box orientation):
 rayAddSurface "prime_plane" 0 0 0 0 1			\
 			[0,0,0]&[0,0,0.798]			\
 			"cylinder"@[0,0,0]&[1,0,0] 1
-rayAddSurface "main_mirror" +0.0083333333 1 0 0 -1		\
+rayAddSurface "main_mirror" +0.0083333333 0 0 0 -1		\
 			[-60,0,0]&[0,0,0]		\
 			"cylinder"@[-60,-54,0]&[1,0,0] 50    
 rayAddSurface "prime_plane" 0 0 0 0 1			\

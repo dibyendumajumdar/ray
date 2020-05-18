@@ -33,13 +33,13 @@ System M-G#01_LA0_267/100m
 # R1=+197.87,R2=-133.70,R3=-509.460
 # d1_2=12.5mm, d2_3=7.1mm, focus about 300mm to right.
 # n1_2=1.55748578, n2_3=1.65948973
-rayAddSurface "front" +0.00505382 0 0 0 0.64206044 \
+rayAddSurface "front" +0.00505382 1 0 0 0.64206044 \
 			[0,0,0]&[0,0,0]		\
 			"cylinder"@[0,0,0]&[1,0,0] 40 
-rayAddSurface "middle" -0.00747943 0 0 0 0.93853294 \
+rayAddSurface "middle" -0.00747943 1 0 0 0.93853294 \
 			[12.5,0,0]&[0,0,0]		\
 			"cylinder"@[0,0,0]&[1,0,0] 40 
-rayAddSurface "rear" -0.00196286 0 0 0 1.65948973 \
+rayAddSurface "rear" -0.00196286 1 0 0 1.65948973 \
 			19.6 0 0     0 0 0 \
 			"cylinder"@[0,0,0]&[1,0,0] 40 
 rayAddSurface "focus" 0 0 0 0 1 \
