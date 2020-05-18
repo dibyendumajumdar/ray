@@ -33,13 +33,12 @@
 int main(int argc, char *argv[])
 {
 	char str[LONG], line[LONG], cmd[SHORT], c2[SHORT], wave_type[SHORT], assign_by[SHORT], name[LONG],
-	    vignette[SHORT], temp[LONG], filename[SHORT], form[LONG], print_mode[LONG], psname[SHORT], pltmode[LONG],
+	    temp[LONG], filename[SHORT], form[LONG], print_mode[LONG], psname[SHORT], pltmode[LONG],
 	    set_name[LONG];
 	char *p, *p_set_name = NULL;
-	double xyz[3], XYZ[3], radius, step, angle, db, c, e, a2, a4, mu1, v[3], V[3], tol = 0.00001, hcm, wcm, wps,
+	double xyz[3], XYZ[3], radius, step, angle, db, c, e, a2, a4, mu1, tol = 0.00001, hcm, wcm, wps,
 										       to[3];
 	int nv, nve, steps, num, code1, code2, d = 4, i, j, k = 65, axis_mask;
-	enum VignetteType vign_type;
 	enum ColorType a_b;
 	struct Node *BundleSet, *System, *Segments, *Temp_List, *Foci, *Planes;
 	FILE *fp;
@@ -136,24 +135,12 @@ int main(int argc, char *argv[])
 					/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 				} else if (strcmp(cmd, "rayAddSurface") == 0) {
 					strcpy(form, "%s %s %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf");
-					strcat(form, " %s %lf %lf %lf %lf %lf %lf %lf");
 					if ((nv = sscanf(line, form, c2, name, &c, &e, &a2, &a4, &mu1, &xyz[0], &xyz[1],
-							 &xyz[2], &XYZ[0], &XYZ[1], &XYZ[2], vignette, &v[0], &v[1],
-							 &v[2], &V[0], &V[1], &V[2], &radius)) != 21) {
-						printf("Expected 21 values, got nv=%d -->ABORT\n", nv);
+							 &xyz[2], &XYZ[0], &XYZ[1], &XYZ[2])) != 13) {
+						printf("Expected 13 values, got nv=%d -->ABORT\n", nv);
 						exit(EXIT_FAILURE);
 					}
-					if (strcmp(vignette, "cylinder") == 0)
-						vign_type = VIGN_CYLINDER;
-					else if (strcmp(vignette, "cone") == 0)
-						vign_type = VIGN_CONE;
-					else {
-						printf("vignette_type_code=<%s> not recognized -->ABORT!\n", vignette);
-						exit(EXIT_FAILURE);
-					};
-					rayAddSurface(System, name, c, e, a2, a4, mu1, xyz, XYZ, vign_type, v, V,
-						      radius);
-
+					rayAddSurface(System, name, c, e, a2, a4, mu1, xyz, XYZ);
 					/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 				} else if (strcmp(cmd, "rayPrtSystem") == 0) {
 					rayPrtSystem(System, d);

@@ -61,10 +61,6 @@ struct Surface {
 			       "General Ray-Tracing Procedure",
 			       G.H.Spencer and M.V.R.K.Murty, JOSA 52,
 			       pp.672-678, (June 1962)). */
-	enum VignetteType vign_type;
-	double vign_origin[3];
-	double vign_vector[3];
-	double vign_radius;
 };
 
 struct Ray {
@@ -173,11 +169,8 @@ struct Node *rayAddSurface(struct Node *list,		   /* list of surfaces */
 			   double A_2,			   /* deformation terms */
 			   double A_4, double index_ratio, /* N/N_1, -1 means mirror */
 			   double S[],			   /* XYZ of vertex */
-			   double E[],			   /* Euler angles of vertex tilt */
-			   enum VignetteType vign_type,	   /* VIGN_CYLINDER | VIGN_CONE */
-			   double VO[],			   /* vignette origin XYZ */
-			   double VV[],			   /* vignette direction cosines */
-			   double VR)			   /* radius, linear | radians   */
+			   double E[]			   /* Euler angles of vertex tilt */
+			   )
     ;
 void rayPrtSystem(struct Node *list, /* list of surfaces           */
 		  int d)	     /* digits after decimal point */
