@@ -56,6 +56,40 @@
 
 #define TOLMAX 6
 
+/**
+ * Compute A_4*s^4 + A_6*s^6 + A_8*s^8 + A_10*s^10 + A_12*s^12 + A_14*s^14
+ * s2 = x^2 + y^2
+ */
+static inline double deform_sagitta (const struct Surface *S, double s2)
+{
+	double s4 = s2 * s2;
+	double s6 = s4 * s2;
+	double s8 = s6 * s2;
+	double s10 = s8 * s2;
+	double s12 = s10 * s2;
+	double s14 = s12 * s2;
+	/* originally (S->a_2 + S->a_4 * s_2) * s_2 */
+	return S->a_2 * s2 +  S->a_4 * s4 + S->a_6 * s6 + S->a_8 * s8 + S->a_10 * s10
+	       + S->a_12 * s12 + S->a_14 * s14;
+}
+
+/**
+ * Compute 4*A_4*s^2 + 6*A_6*s^4 + 8*A_8*s^6 + 10*A_10*s^8 + 12*A_12*s^10 + 14*A_14*s^12
+ * s2 = x^2 + y^2
+ * Used in dz/dy and dz/dx calculations
+ */
+static inline double deform_dz_dxy (const struct Surface *S, double s2)
+{
+	double s4 = s2 * s2;
+	double s6 = s4 * s2;
+	double s8 = s6 * s2;
+	double s10 = s8 * s2;
+	double s12 = s10 * s2;
+	/* originally  (2.0 * S->a_2 + 4.0 * S->a_4 * s_2) */
+	return 2 * S->a_2 + 4 * S->a_4 * s2 + 6 * S->a_6 * s4 + 8 * S->a_8 * s6
+	       + 10 * S->a_10 * s8 + 12 * S->a_12 * s10 + 14 * S->a_14 * s12;
+}
+
 struct Node *rayTrace(				 /* returns traced RayBundleSet */
 		      struct Node *RayBundleSet, /* the lists of input rays */
 		      struct Node *System,	 /* the list of surfaces    */
@@ -257,14 +291,14 @@ struct Node *rayTrace(				 /* returns traced RayBundleSet */
 					}
 					/* Feder equation (12) */
 					/* But using c*s^2/[1 + (1 - c^2*s^2)^(1/2)] + aspheric A_2*s^2 + A_4*s^4 + ... */
-					x_bar_0 = (S->c_1 * s_2) / (1.0 + temp) + (S->a_2 + S->a_4 * s_2) * s_2;
+					x_bar_0 = (S->c_1 * s_2) / (1.0 + temp) + deform_sagitta(S, s_2);
 					delta = fabs(R->T[0] - x_bar_0);
 
 					/* Get the direction numbers for the normal to the
 					   aspheric: */
 					/* Feder equation (13), l */
 					N[0] = temp;
-					temp = S->c_1 + N[0] * (2.0 * S->a_2 + 4.0 * S->a_4 * s_2);
+					temp = S->c_1 + N[0] * deform_dz_dxy(S, s_2);
 					/* Feder equation (14), m */
 					N[1] = -R->T[1] * temp;
 					/* Feder equation (15), n */
