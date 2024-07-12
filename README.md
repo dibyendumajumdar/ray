@@ -34,7 +34,7 @@ General Public License as published by the Free Software Foundation.."
 ## Notes
 
 The software was obtained from NRAO ftp site. 
-The original author is [Donald C. Wells](https://www.cv.nrao.edu/~dwells/).
+The original author is [Donald C. Wells](https://web.archive.org/web/20201129111513/https://www.cv.nrao.edu/~dwells/).
 
 ## Changes 
 
